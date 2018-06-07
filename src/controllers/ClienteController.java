@@ -6,6 +6,8 @@
 package controllers;
 
 import excepciones.ClienteExceptions.ClienteIncomploteException;
+import java.io.Serializable;
+import java.util.List;
 import modelo.Cliente;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -52,21 +54,39 @@ public class ClienteController {
         this.clienteNuevo = clienteNuevo;
     }
 
-    public String buscarCliente(String campo, String ses) {
-        String resultado = null;
+    public Cliente buscarCliente(String dato, int seleccionarBusqueda) {
+        
         session = SessionFactoryProvider.getInstance().createSession();
         tx = session.beginTransaction();
         Runner.addSession(session);
         clienteDao = new ClienteDao();
-        clienteNuevo = clienteDao.recuperar(campo, ses);
+        
+        switch (seleccionarBusqueda) {
+
+            case 1:
+                clienteNuevo = clienteDao.buscarNombre(dato);
+                break;
+            case 2:
+                clienteNuevo = clienteDao.buscarDni(Integer.parseInt(dato));
+                break;
+            default:
+                break;
+        }
         tx.commit();
         session.close();
+        return clienteNuevo;
+    }
 
-        return " Nombre de cliente: " + clienteNuevo.nombre + "|"
-                + " Direccion: " + clienteNuevo.direccion + "|"
-                + " Telefono: " + clienteNuevo.telefono + "|"
-                + " ID: " + clienteNuevo.id + "|"
-                + " DNI: " + clienteNuevo.DNI;
+    public List<Cliente> traerClientes() {
+        List<Cliente> traertodo;
+        session = SessionFactoryProvider.getInstance().createSession();
+        tx = session.beginTransaction();
+        Runner.addSession(session);
+        clienteDao = new ClienteDao();
+        traertodo = clienteDao.traerTodo();
+        tx.commit();
+        session.close();
+        return traertodo;
     }
 
 }
