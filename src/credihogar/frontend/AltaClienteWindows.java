@@ -167,7 +167,7 @@ public class AltaClienteWindows extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ctrlCliente.getClienteNuevo().setNombre(jTextField1.getText());
-        ctrlCliente.getClienteNuevo().setDireccion(jTextField2.getText());
+        ctrlCliente.getClienteNuevo().setCalle(jTextField2.getText());
         ctrlCliente.getClienteNuevo().setTelefono(Integer.parseInt(jTextField3.getText()));
         ctrlCliente.getClienteNuevo().setDNI(Integer.parseInt(jTextField4.getText()));
         ctrlCliente.guardarClienteNuevo();

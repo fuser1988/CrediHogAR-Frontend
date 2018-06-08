@@ -153,7 +153,7 @@ public class BuscarCliente extends javax.swing.JFrame {
 
                 Object[] objetos = new Object[]{buscar.getId(),
                     buscar.getDNI(),
-                    buscar.getDireccion(),
+                    buscar.getCalle(),
                     buscar.getNombre(),
                     buscar.getTelefono()};
 
@@ -179,7 +179,7 @@ public class BuscarCliente extends javax.swing.JFrame {
         for (Cliente clientes : cliente) {
             Object[] objetos = new Object[]{clientes.getId(),
                 clientes.getDNI(),
-                clientes.getDireccion(),
+                clientes.getCalle(),
                 clientes.getNombre(),
                 clientes.getTelefono()};
 
