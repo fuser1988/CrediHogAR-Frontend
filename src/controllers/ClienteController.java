@@ -12,6 +12,7 @@ import modelo.Cliente;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import repositorio.ClienteDao;
+import repositorio.PagoDao;
 import repositorio.Runner;
 import repositorio.SessionFactoryProvider;
 
@@ -55,12 +56,12 @@ public class ClienteController {
     }
 
     public Cliente buscarCliente(String dato, int seleccionarBusqueda) {
-        
+
         session = SessionFactoryProvider.getInstance().createSession();
         tx = session.beginTransaction();
         Runner.addSession(session);
         clienteDao = new ClienteDao();
-        
+
         switch (seleccionarBusqueda) {
 
             case 1:
