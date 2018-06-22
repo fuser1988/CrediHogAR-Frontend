@@ -6,6 +6,7 @@
 package credihogar.frontend;
 
 import controllers.ArticuloController;
+import modelo.Articulo;
 
 /**
  *
@@ -14,10 +15,12 @@ import controllers.ArticuloController;
 public class ArticuloWindows extends javax.swing.JFrame {
 
     public ArticuloController articuloController;
+    private Articulo articulo;
+
     public ArticuloWindows() {
         initComponents();
         articuloController = new ArticuloController();
-        
+
     }
 
     /**
@@ -46,6 +49,7 @@ public class ArticuloWindows extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -65,6 +69,14 @@ public class ArticuloWindows extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
+
+        jTextField2.setEditable(false);
+
+        jTextField3.setEditable(false);
+
+        jTextField4.setEditable(false);
+
+        jTextField5.setEditable(false);
 
         jLabel2.setText("Codigo");
 
@@ -91,6 +103,11 @@ public class ArticuloWindows extends javax.swing.JFrame {
         });
 
         jButton2.setText("Buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -117,19 +134,24 @@ public class ArticuloWindows extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jButton6.setText("Eliminar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5)
-                        .addGap(80, 80, 80))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,11 +174,16 @@ public class ArticuloWindows extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                                         .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jButton4)
+                .addGap(18, 18, 18)
+                .addComponent(jButton5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6)
+                .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +215,8 @@ public class ArticuloWindows extends javax.swing.JFrame {
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
                 .addGap(24, 24, 24))
         );
 
@@ -197,14 +225,23 @@ public class ArticuloWindows extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        limpiarInputs();
+        setEditable();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        articulo.setCodigoArticulo(Integer.parseInt(jTextField1.getText()));
+        articulo.setNombre(jTextField2.getText());
+        articulo.setDescripcion(jTextField3.getText());
+        articulo.setPrecio(Integer.parseInt(jTextField4.getText()));
+        articulo.setCosto(Integer.parseInt(jTextField5.getText()));
+        articuloController.editarArticulo(articulo);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -216,6 +253,29 @@ public class ArticuloWindows extends javax.swing.JFrame {
         articuloController.guardarArticuloNuevo();
         limpiarInputs();
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+
+        try{
+        articuloController.setArticuloBuscar(jTextField1.getText());
+        articulo = articuloController.buscarArticulo(1);
+        
+        jTextField1.setText(String.valueOf(articulo.getCodigoArticulo()));
+        jTextField2.setText(articulo.getNombre());
+        jTextField3.setText(articulo.getDescripcion());
+        jTextField4.setText(String.valueOf(articulo.getPrecio()));
+        jTextField5.setText(String.valueOf(articulo.getCosto()));
+        }catch(Exception e){
+        }
+        setEditable();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        articuloController.eliminarArticulo(Integer.parseInt(jTextField1.getText()));
+        limpiarInputs();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,6 +318,7 @@ public class ArticuloWindows extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -278,5 +339,12 @@ public class ArticuloWindows extends javax.swing.JFrame {
         jTextField3.setText("");
         jTextField4.setText("");
         jTextField5.setText("");
+    }
+    
+    private void setEditable(){
+        jTextField2.setEditable(true);
+        jTextField3.setEditable(true);
+        jTextField4.setEditable(true);
+        jTextField5.setEditable(true);
     }
 }
