@@ -8,6 +8,7 @@ package controllers;
 import excepciones.ClienteExceptions.ClienteIncomploteException;
 import java.io.Serializable;
 import java.util.List;
+import javax.swing.JOptionPane;
 import modelo.Cliente;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -25,18 +26,23 @@ public class ClienteController {
     ClienteDao clienteDao;
     Session session;
     Transaction tx;
+    Cliente cliente = new Cliente();
     Cliente clienteNuevo = new Cliente();
-
+    private Cliente clienteEdit = new Cliente();
+    private String clienteBuscar = null;
+    private int clienteSeleccionado = 0;
+    private int clienteEditado = 0;
+    
     public void guardarClienteNuevo() {
         try {
-            // clienteNuevo.validarDatos();
+            //clienteNuevo.validarDatos();
             guardarCliente();
         } catch (Exception e) {
             throw (new ClienteIncomploteException(e.getMessage()));
         }
     }
 
-    public void guardarCliente() {
+    private void guardarCliente() {
 
         session = SessionFactoryProvider.getInstance().createSession();
         tx = session.beginTransaction();
@@ -46,16 +52,12 @@ public class ClienteController {
         tx.commit();
         session.close();
     }
-
-    public Cliente getClienteNuevo() {
-        return clienteNuevo;
+    
+    public Cliente buscarCliente(int seleccionar){
+        return buscar(seleccionar);
     }
 
-    public void setClienteNuevo(Cliente clienteNuevo) {
-        this.clienteNuevo = clienteNuevo;
-    }
-
-    public Cliente buscarCliente(String dato, int seleccionarBusqueda) {
+    private Cliente buscar(int seleccionarBusqueda) {
 
         session = SessionFactoryProvider.getInstance().createSession();
         tx = session.beginTransaction();
@@ -65,20 +67,39 @@ public class ClienteController {
         switch (seleccionarBusqueda) {
 
             case 1:
-                clienteNuevo = clienteDao.buscarNombre(dato);
+                cliente = clienteDao.buscarNombre(clienteBuscar);
                 break;
             case 2:
-                clienteNuevo = clienteDao.buscarDni(Integer.parseInt(dato));
+                cliente = clienteDao.buscarApellido(clienteBuscar);
+                break;
+            case 3:
+                if (clienteBuscar.equalsIgnoreCase("")) {
+                    clienteBuscar = "0";
+                }
+                cliente = clienteDao.buscarDni(Integer.parseInt(clienteBuscar));
+                break;
+            case 4:
+                if (clienteBuscar.equalsIgnoreCase("")) {
+                    clienteBuscar = "0";
+                }
+                cliente = clienteDao.buscarID(Integer.parseInt(clienteBuscar));
+                break;
+            case 5:
+                cliente = clienteDao.buscarCalificacion(clienteBuscar);
                 break;
             default:
                 break;
         }
         tx.commit();
         session.close();
-        return clienteNuevo;
+        return cliente;
+    }
+    
+    public List<Cliente> traerClientes(){
+        return traerLista();
     }
 
-    public List<Cliente> traerClientes() {
+    private List<Cliente> traerLista() {
         List<Cliente> traertodo;
         session = SessionFactoryProvider.getInstance().createSession();
         tx = session.beginTransaction();
@@ -89,5 +110,93 @@ public class ClienteController {
         session.close();
         return traertodo;
     }
+    
+    public void borrarClienteSeleccionado(){
+    try {
+        borrar();
+    }catch(Exception e){
+    }
+    }
+    
+    private void borrar() {
+        session = SessionFactoryProvider.getInstance().createSession();
+        tx = session.beginTransaction();
+        Runner.addSession(session);
+        clienteDao = new ClienteDao();
+        clienteDao.borrar("id", clienteSeleccionado);
+        tx.commit();
+        session.close();
+    }
 
+    public Cliente recuperarCliente(){
+        return recuperar();
+    }
+    
+    private Cliente recuperar() {
+        session = SessionFactoryProvider.getInstance().createSession();
+        tx = session.beginTransaction();
+        Runner.addSession(session);
+        clienteDao = new ClienteDao();
+        clienteEdit = clienteDao.recuperar("id", clienteEditado);
+        tx.commit();
+        session.close();
+        return clienteEdit;
+    }
+    
+    public void editarCliente(Cliente cliente){
+        try{
+            editar(cliente);
+        }catch(Exception e){
+        }
+    }
+
+    private void editar(Cliente clienteeditado) {
+        session = SessionFactoryProvider.getInstance().createSession();
+        tx = session.beginTransaction();
+        Runner.addSession(session);
+        clienteDao = new ClienteDao();
+        clienteDao.actualizar(clienteeditado);
+        tx.commit();
+        session.close();
+    }
+
+     public Cliente getClienteNuevo() {
+        return clienteNuevo;
+    }
+
+    public void setClienteNuevo(Cliente clienteNuevo) {
+        this.clienteNuevo = clienteNuevo;
+    }
+
+    public String getBuscarCliente() {
+        return clienteBuscar;
+    }
+
+    public void setBuscarCliente(String clientebuscar) {
+        this.clienteBuscar = clientebuscar;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+    
+    public int getClienteEditado() {
+        return clienteEditado;
+    }
+    
+    public void setClienteaEditar(int clienteEditar) {
+        this.clienteEditado = clienteEditar;
+    }
+    
+    public void setClienteSelecionado(int idcliente) {
+        this.clienteSeleccionado = idcliente;
+    }
+
+    public int getClienteSelecionado() {
+        return clienteSeleccionado;
+    }
 }

@@ -18,14 +18,19 @@ import modelo.Cliente;
  * @author Bautista
  */
 public class BuscarCliente extends javax.swing.JFrame {
-
+    
+    
     private ClienteController ctrlCliente = new ClienteController();
+    
+    private int seleccionarBusqueda = 0;
+    DefaultTableModel tModel;
 
     /**
      * Creates new form BuscarCliente
      */
     public BuscarCliente() {
         initComponents();
+        this.tModel = (DefaultTableModel) jTable1.getModel();
     }
 
     /**
@@ -40,9 +45,10 @@ public class BuscarCliente extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -51,7 +57,12 @@ public class BuscarCliente extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "DNI" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombre", "Apellido", "DNI", "ID", "Calificacion" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -60,25 +71,51 @@ public class BuscarCliente extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Atras");
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nombre", "Apellido", "Calle", "Entre Calle", "DNI", "Telefono", "Calificacion"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(3);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(6).setResizable(false);
+            jTable1.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        jButton3.setText("Eliminar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Editar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "DNI", "Direccion", "Nombre", "Telefono"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,18 +124,19 @@ public class BuscarCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1)
-                        .addGap(17, 17, 17))
+                        .addGap(515, 515, 515))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -106,50 +144,39 @@ public class BuscarCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(28, 28, 28)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton2))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int seleccionarBusqueda = 0;
-        String buscarDato = jTextField1.getText();
-        int seleccion = jComboBox1.getSelectedIndex();
-
-        switch (seleccion) {
-
-            case 0:
-                seleccionarBusqueda = 1;
-                break;
-            case 1:
-                seleccionarBusqueda = 2;
-                break;
-            default:
-                seleccionarBusqueda = 0;
-        }
-
-        Cliente buscar = ctrlCliente.buscarCliente(buscarDato, seleccionarBusqueda);
-
+        
+        ctrlCliente.setBuscarCliente(jTextField1.getText());
+        Cliente buscar = ctrlCliente.buscarCliente(this.seleccionar());
+        
         try {
             if (buscar != null) {
-                DefaultTableModel tModel = (DefaultTableModel) jTable1.getModel();
                 tModel.setRowCount(0);
-
+                
                 Object[] objetos = new Object[]{buscar.getId(),
-                    buscar.getDNI(),
-                    buscar.getCalle(),
                     buscar.getNombre(),
-                    buscar.getTelefono()};
-
+                    buscar.getApellido(),
+                    buscar.getCalle(),
+                    buscar.getEntreCalle(),
+                    buscar.getDNI(),
+                    buscar.getTelefono(),
+                    buscar.getCalificacion()};
+                
                 tModel.addRow(objetos);
             }
         } catch (Exception e) {
@@ -158,27 +185,54 @@ public class BuscarCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
         List<Cliente> cliente = ctrlCliente.traerClientes();
-
-        DefaultTableModel tModel = (DefaultTableModel) jTable1.getModel();
         tModel.setRowCount(0);
         for (Cliente clientes : cliente) {
             Object[] objetos = new Object[]{clientes.getId(),
-                clientes.getDNI(),
-                clientes.getCalle(),
                 clientes.getNombre(),
-                clientes.getTelefono()};
-
+                clientes.getApellido(),
+                clientes.getCalle(),
+                clientes.getEntreCalle(),
+                clientes.getDNI(),
+                clientes.getTelefono(),
+                clientes.getCalificacion()};
+            
             tModel.addRow(objetos);
+            tModel.getDataVector();
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        try{
+        int fila = jTable1.getSelectedRow();
+        int columna = jTable1.getSelectedColumn();
+        ctrlCliente.setClienteSelecionado((int) jTable1.getValueAt(fila, columna));
+        ctrlCliente.borrarClienteSeleccionado();
+        tModel.removeRow(fila);
+        }catch(Exception e){
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        try{
+        int fila = jTable1.getSelectedRow();
+        int columna = jTable1.getSelectedColumn();
+        ctrlCliente.setClienteaEditar((int) jTable1.getValueAt(fila, columna));
+        Cliente editarCliente = ctrlCliente.recuperarCliente();
+        AltaClienteWindows altacliente = new AltaClienteWindows(editarCliente);
+        altacliente.setVisible(true);
+        altacliente.setLocationRelativeTo(null);
+        }catch(Exception e){
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,9 +272,37 @@ public class BuscarCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    public int seleccionar() {
+        
+        int seleccion = jComboBox1.getSelectedIndex();
+        
+        switch (seleccion) {
+            
+            case 0:
+                seleccionarBusqueda = 1;
+                break;
+            case 1:
+                seleccionarBusqueda = 2;
+                break;
+            case 2:
+                seleccionarBusqueda = 3;
+                break;
+            case 3:
+                seleccionarBusqueda = 4;
+                break;
+            case 4:
+                seleccionarBusqueda = 5;
+                break;
+            default:
+                seleccionarBusqueda = 0;
+        }
+        return seleccionarBusqueda;
+    }
 }
