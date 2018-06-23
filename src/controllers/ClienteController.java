@@ -10,12 +10,14 @@ import java.io.Serializable;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
+import modelo.Credito;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import repositorio.ClienteDao;
 import repositorio.PagoDao;
 import repositorio.Runner;
 import repositorio.SessionFactoryProvider;
+import utils.CreditoObservado;
 
 /**
  *
@@ -30,8 +32,22 @@ public class ClienteController {
     Cliente clienteNuevo = new Cliente();
     private Cliente clienteEdit = new Cliente();
     private String clienteBuscar = null;
-    private int clienteSeleccionado = 0;
+    private Cliente clienteSeleccionado = new Cliente();
     private int clienteEditado = 0;
+    public List<Cliente> resultadoBusquedaClientes;
+    public CreditoObservado creditoNuevo; 
+    
+    public ClienteController (){
+        resultadoBusquedaClientes = this.traerClientes();
+    }
+
+    public List<Cliente> getResultadoBusquedaClientes() {
+        return resultadoBusquedaClientes;
+    }
+
+    public void setResultadoBusquedaClientes(List<Cliente> resultadoBusquedaClientes) {
+        this.resultadoBusquedaClientes = resultadoBusquedaClientes;
+    }
     
     public void guardarClienteNuevo() {
         try {
@@ -110,7 +126,7 @@ public class ClienteController {
         session.close();
         return traertodo;
     }
-    
+     
     public void borrarClienteSeleccionado(){
     try {
         borrar();
@@ -123,7 +139,7 @@ public class ClienteController {
         tx = session.beginTransaction();
         Runner.addSession(session);
         clienteDao = new ClienteDao();
-        clienteDao.borrar("id", clienteSeleccionado);
+        clienteDao.borrar("id", clienteSeleccionado.getId());
         tx.commit();
         session.close();
     }
@@ -192,11 +208,17 @@ public class ClienteController {
         this.clienteEditado = clienteEditar;
     }
     
-    public void setClienteSelecionado(int idcliente) {
-        this.clienteSeleccionado = idcliente;
+    public void setClienteSelecionado(Cliente cliente) {
+        this.clienteSeleccionado = cliente;
     }
 
-    public int getClienteSelecionado() {
+    public Cliente getClienteSelecionado() {
         return clienteSeleccionado;
     }
+    
+    public void setCreditoNuevo(CreditoObservado creditoNuevo) {
+        this.creditoNuevo = creditoNuevo;
+    }
+    
+    
 }

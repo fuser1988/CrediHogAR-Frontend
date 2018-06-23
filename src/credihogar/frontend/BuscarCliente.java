@@ -6,10 +6,7 @@
 package credihogar.frontend;
 
 import controllers.ClienteController;
-import java.io.Serializable;
 import java.util.List;
-import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
 
@@ -18,10 +15,9 @@ import modelo.Cliente;
  * @author Bautista
  */
 public class BuscarCliente extends javax.swing.JFrame {
-    
-    
-    private ClienteController ctrlCliente = new ClienteController();
-    
+
+    public ClienteController ctrlCliente = new ClienteController();
+
     private int seleccionarBusqueda = 0;
     DefaultTableModel tModel;
 
@@ -49,6 +45,9 @@ public class BuscarCliente extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -117,6 +116,27 @@ public class BuscarCliente extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setText("Aceptar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Cancelar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Agregar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,9 +154,16 @@ public class BuscarCliente extends javax.swing.JFrame {
                         .addGap(515, 515, 515))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton6)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
+                        .addComponent(jButton3)
+                        .addGap(94, 94, 94)
+                        .addComponent(jButton4)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton5)
+                        .addGap(15, 15, 15)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -150,24 +177,28 @@ public class BuscarCliente extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         ctrlCliente.setBuscarCliente(jTextField1.getText());
         Cliente buscar = ctrlCliente.buscarCliente(this.seleccionar());
-        
+
         try {
             if (buscar != null) {
                 tModel.setRowCount(0);
-                
+
                 Object[] objetos = new Object[]{buscar.getId(),
                     buscar.getNombre(),
                     buscar.getApellido(),
@@ -176,7 +207,7 @@ public class BuscarCliente extends javax.swing.JFrame {
                     buscar.getDNI(),
                     buscar.getTelefono(),
                     buscar.getCalificacion()};
-                
+
                 tModel.addRow(objetos);
             }
         } catch (Exception e) {
@@ -187,7 +218,7 @@ public class BuscarCliente extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        List<Cliente> cliente = ctrlCliente.traerClientes();
+        List<Cliente> cliente = ctrlCliente.getResultadoBusquedaClientes();
         tModel.setRowCount(0);
         for (Cliente clientes : cliente) {
             Object[] objetos = new Object[]{clientes.getId(),
@@ -198,7 +229,7 @@ public class BuscarCliente extends javax.swing.JFrame {
                 clientes.getDNI(),
                 clientes.getTelefono(),
                 clientes.getCalificacion()};
-            
+
             tModel.addRow(objetos);
             tModel.getDataVector();
         }
@@ -206,13 +237,12 @@ public class BuscarCliente extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        try{
-        int fila = jTable1.getSelectedRow();
-        int columna = jTable1.getSelectedColumn();
-        ctrlCliente.setClienteSelecionado((int) jTable1.getValueAt(fila, columna));
-        ctrlCliente.borrarClienteSeleccionado();
-        tModel.removeRow(fila);
-        }catch(Exception e){
+        try {
+            int fila = jTable1.getSelectedRow();
+            ctrlCliente.setClienteSelecionado(ctrlCliente.getResultadoBusquedaClientes().get(fila));
+            ctrlCliente.borrarClienteSeleccionado();
+            tModel.removeRow(fila);
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -222,17 +252,33 @@ public class BuscarCliente extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        try{
-        int fila = jTable1.getSelectedRow();
-        int columna = jTable1.getSelectedColumn();
-        ctrlCliente.setClienteaEditar((int) jTable1.getValueAt(fila, columna));
-        Cliente editarCliente = ctrlCliente.recuperarCliente();
-        AltaClienteWindows altacliente = new AltaClienteWindows(editarCliente);
-        altacliente.setVisible(true);
-        altacliente.setLocationRelativeTo(null);
-        }catch(Exception e){
+        try {
+            int fila = jTable1.getSelectedRow();
+            int columna = jTable1.getSelectedColumn();
+            ctrlCliente.setClienteaEditar((int) jTable1.getValueAt(fila, columna));
+            Cliente editarCliente = ctrlCliente.recuperarCliente();
+            AltaClienteWindows altacliente = new AltaClienteWindows(editarCliente);
+            altacliente.setVisible(true);
+            altacliente.setLocationRelativeTo(null);
+        } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int fila = jTable1.getSelectedRow();
+        ctrlCliente.creditoNuevo.setCliente(ctrlCliente.getResultadoBusquedaClientes().get(fila));
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+       AltaClienteWindows ventanaCliente = new AltaClienteWindows();
+       ventanaCliente.setVisible(true);
+       ventanaCliente.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,6 +319,9 @@ public class BuscarCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
@@ -280,11 +329,11 @@ public class BuscarCliente extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public int seleccionar() {
-        
+
         int seleccion = jComboBox1.getSelectedIndex();
-        
+
         switch (seleccion) {
-            
+
             case 0:
                 seleccionarBusqueda = 1;
                 break;
@@ -305,4 +354,9 @@ public class BuscarCliente extends javax.swing.JFrame {
         }
         return seleccionarBusqueda;
     }
+
+    public ClienteController getCtrlCliente() {
+        return ctrlCliente;
+    }
+
 }
