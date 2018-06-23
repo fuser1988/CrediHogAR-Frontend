@@ -4,9 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/ArticuloWindows.java</file>
+            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/controllers/ArticuloController.java</file>
             <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/MainWindows.java</file>
             <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/BuscarCliente.java</file>
-            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/Consultas.java</file>
             <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/AltaClienteWindows.java</file>
             <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/controllers/ClienteController.java</file>
         </group>
