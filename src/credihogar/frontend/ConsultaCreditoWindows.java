@@ -421,6 +421,11 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         jButton7.setText("Imprimir");
 
         jButton8.setText("Salir");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("Pagos");
 
@@ -607,6 +612,10 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         jButton10.setEnabled(false);
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -706,9 +715,6 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
 
     @Override
     public void update(Observable o, Object o1) {
-        //initComponents();
-       // jFormattedTextField1.setText("A-0349");
-       // jTextField5.setText("................");
         this.refresh();
     }
     
