@@ -7,12 +7,15 @@ package credihogar.frontend;
 
 import controllers.ConsultaCreditoController;
 import controllers.CreditoController;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.DefaultComboBoxModel;
 import modelo.Cliente;
 import modelo.Credito;
+import modelo.EstadoDeCredito;
 import modelo.FormaDePago;
 
 /**
@@ -27,10 +30,17 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
      ConsultaCreditoController consultaCreditoController;
     
     public ConsultaCreditoWindows() {
-        
+        //este metodo devuelve el tamaño de la pantalla
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+         //obtenemos el tamaño de la ventana
+        Dimension ventana = this.getSize();
+        //para centrar la ventana lo hacemos con el siguiente calculo
+        this.setLocation(((pantalla.width - ventana.width) / 2)-500, ((pantalla.height - ventana.height) / 2)-350); 
+      
         consultaCreditoController = new ConsultaCreditoController();
         initComponents();
-        initFormasDePago();   
+        initFormasDePago();
+        initEstadosDeCredito(); 
     }
 
     public ConsultaCreditoController getConsultaCreditoController() {
@@ -49,6 +59,10 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
 
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jPopupMenu1 = new javax.swing.JPopupMenu();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
@@ -98,6 +112,9 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox<>();
 
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
@@ -137,7 +154,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         });
         jScrollPane2.setViewportView(jList1);
 
-        jButton2.setText("Agregar");
+        jButton2.setText("Agregar ->");
 
         jButton1.setText("Cliente");
         jButton1.setEnabled(false);
@@ -211,7 +228,6 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
 
         jLabel5.setText("Forma de Pago");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.setEnabled(false);
 
         jLabel6.setText("Cuotas");
@@ -362,8 +378,8 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -384,7 +400,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
-        jButton3.setText("Quitar");
+        jButton3.setText("<- Quitar");
 
         jList2.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -419,6 +435,46 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         });
 
         jButton10.setText("Editar");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setText("Estado");
+
+        jComboBox4.setEditable(true);
+        jComboBox4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jComboBox4.setEnabled(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${consultaCreditoController.creditoBuscado.estado}"), jComboBox4, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(jLabel17)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -434,17 +490,20 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
                                 .addComponent(jLabel15))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(13, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -486,21 +545,23 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel16)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton3))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();
@@ -509,14 +570,10 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-//        Credito creditoAGuardar = creditoController.getCreditoNuevo();
-//        creditoAGuardar.setCodigo(jTextField1.getText());
-//        creditoAGuardar.setFechaDeInicio(jDateChooser1.getDate());
-//        creditoAGuardar.setFechaDeVencimiento(jDateChooser2.getDate());
-//        creditoAGuardar.setFormaDePago((FormaDePago) jComboBox1.getSelectedItem());
-//        creditoAGuardar.setAnticipo(Integer.parseInt(jTextField4.getText()));
-//        creditoAGuardar.setCuotas(Integer.parseInt(jTextField5.getText()));
-//        creditoController.guardarCreditoNuevo();
+        consultaCreditoController.actualizarCredito();
+        jButton10.setEnabled(true);
+        jButton5.setEnabled(false);
+        jComboBox4.setEnabled(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -554,6 +611,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         buscarCreditoWindows.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton6ActionPerformed
 
+
     private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextField1ActionPerformed
@@ -563,6 +621,13 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         PagosWindows pagoWindow = new PagosWindows(consultaCreditoController.getCreditoBuscado());
         pagoWindow.setVisible(true);
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        jComboBox4.setEnabled(true);
+        jButton5.setEnabled(true);
+        jButton10.setEnabled(false);
+    }//GEN-LAST:event_jButton10ActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -600,6 +665,10 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
@@ -614,6 +683,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -625,6 +695,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -637,6 +708,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
     private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -657,8 +729,8 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
     @Override
     public void update(Observable o, Object o1) {
         //initComponents();
-        jFormattedTextField1.setText("A-0349");
-        jTextField5.setText("................");
+       // jFormattedTextField1.setText("A-0349");
+       // jTextField5.setText("................");
         this.refresh();
     }
     
@@ -683,6 +755,12 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         jTextField11.setText(cliente.getCalle());
         jTextField10.setText(cliente.getEntreCalle());
         jTextField9.setText(String.valueOf(cliente.getTelefono()));
+    }
+
+    private void initEstadosDeCredito() {
+        List<EstadoDeCredito> estadosDeCredito = consultaCreditoController.getEstadosDeCredito();
+        DefaultComboBoxModel estadosCreditoModel = new DefaultComboBoxModel(estadosDeCredito.toArray());
+        jComboBox4.setModel(estadosCreditoModel);
     }
     
 }

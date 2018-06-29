@@ -443,6 +443,7 @@ public class CreditoWindows  extends javax.swing.JFrame implements Observer  {
         creditoAGuardar.setAnticipo(Integer.parseInt(jTextField4.getText()));
         creditoAGuardar.setCuotas(Integer.parseInt(jTextField5.getText()));
         creditoController.guardarCreditoNuevo();
+        limpiarCampos();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -586,6 +587,22 @@ public class CreditoWindows  extends javax.swing.JFrame implements Observer  {
         jTextField11.setText(cliente.getCalle());
         jTextField10.setText(cliente.getEntreCalle());
         jTextField9.setText(String.valueOf(cliente.getTelefono()));
+    }
+
+    private void limpiarCampos() {
+        jTextField6.setText("");
+        jTextField7.setText("");
+        jTextField8.setText("");
+        jTextField11.setText("");
+        jTextField10.setText("");
+        jTextField9.setText("");
+        
+        jFormattedTextField2.setText("");
+        jDateChooser1.setDate(null);
+        jDateChooser2.setDate(null);
+        jComboBox1.setSelectedItem(null);
+        jTextField4.setText("");
+        jTextField5.setText("");
     }
 
 }

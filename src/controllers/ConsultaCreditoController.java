@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Observable;
 import modelo.Cliente;
 import modelo.Credito;
+import modelo.EstadoDeCredito;
 import modelo.FormaDePago;
 import modelo.Pago;
 import org.hibernate.Session;
@@ -26,12 +27,13 @@ public class ConsultaCreditoController extends Observable {
     Transaction tx;
 
     List<FormaDePago> formasDePago;
-
+    List<EstadoDeCredito> estadosDeCredito;
+    
     public ConsultaCreditoController() {
         creditoBuscado = new Credito();
-        creditoBuscado.setCodigo("A-2354");
+
         Cliente cli = new Cliente();
-        cli.setApellido("fuser");
+
         creditoBuscado.setCliente(cli);
         creditoDao = new CreditoDao();
 
@@ -39,6 +41,14 @@ public class ConsultaCreditoController extends Observable {
         formasDePago.add(FormaDePago.SEMANAL);
         formasDePago.add(FormaDePago.QUINCENAL);
         formasDePago.add(FormaDePago.MENSUAL);
+
+        
+        estadosDeCredito = new ArrayList<EstadoDeCredito>();
+        estadosDeCredito.add(EstadoDeCredito.VIGENTE);
+        estadosDeCredito.add(EstadoDeCredito.PAGO);
+        estadosDeCredito.add(EstadoDeCredito.MORA);
+        estadosDeCredito.add(EstadoDeCredito.BAJA);
+     
 
     }
 
@@ -69,5 +79,23 @@ public class ConsultaCreditoController extends Observable {
         tx.commit();
         session.close();
     }
+
+
+    public List<EstadoDeCredito> getEstadosDeCredito() {
+        return estadosDeCredito;
+    }
+
+    public void actualizarCredito() {
+        session = SessionFactoryProvider.getInstance().createSession();
+        tx = session.beginTransaction();
+        Runner.addSession(session);
+        creditoDao = new CreditoDao();
+        creditoDao.actualizar(creditoBuscado); // arrojar exepcion si no encuentra el codigo
+        tx.commit();
+        session.close();
+    }
+    
+    
+    
 
 }
