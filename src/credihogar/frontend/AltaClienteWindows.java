@@ -241,6 +241,7 @@ public class AltaClienteWindows extends javax.swing.JFrame {
         ctrlCliente.guardarClienteNuevo();
         limpiar();
         }catch(Exception e){
+            System.out.print(e.getMessage());// sacar esto manejar adecuadamente 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
