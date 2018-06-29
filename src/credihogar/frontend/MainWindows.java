@@ -5,6 +5,9 @@
  */
 package credihogar.frontend;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 /**
  *
  * @author bangho
@@ -141,6 +144,11 @@ public class MainWindows extends javax.swing.JFrame {
         jMenu4.add(jMenuItem7);
 
         jMenuItem8.setText("Buscar credito");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem8);
 
         jMenuBar1.add(jMenu4);
@@ -208,6 +216,12 @@ public class MainWindows extends javax.swing.JFrame {
         creditoWindows.setLocationRelativeTo(null);
 
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        ConsultaCreditoWindows consultaCreditoWindows = new ConsultaCreditoWindows();
+        consultaCreditoWindows.setVisible(true);
+        consultaCreditoWindows.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments

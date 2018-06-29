@@ -28,6 +28,7 @@ public class CreditoObservado extends Observable {
         this.credito.setCliente(cliente);
         this.setChanged();
         this.notifyObservers(this);
+        
     }
     
 }
