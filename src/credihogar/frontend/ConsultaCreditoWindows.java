@@ -26,7 +26,6 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
      */
      ConsultaCreditoController consultaCreditoController;
     
-    
     public ConsultaCreditoWindows() {
         
         consultaCreditoController = new ConsultaCreditoController();
@@ -103,7 +102,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         jCheckBoxMenuItem1.setSelected(true);
         jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -240,6 +239,12 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${consultaCreditoController.creditoBuscado.codigo}"), jFormattedTextField1, org.jdesktop.beansbinding.BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
+
+        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -407,6 +412,11 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         jButton8.setText("Salir");
 
         jButton9.setText("Pagos");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("Editar");
 
@@ -543,6 +553,16 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         buscarCreditoWindows.setVisible(true);
         buscarCreditoWindows.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        PagosWindows pagoWindow = new PagosWindows(consultaCreditoController.getCreditoBuscado());
+        pagoWindow.setVisible(true);
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments

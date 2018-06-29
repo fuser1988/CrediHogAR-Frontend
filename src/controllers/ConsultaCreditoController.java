@@ -11,15 +11,15 @@ import java.util.Observable;
 import modelo.Cliente;
 import modelo.Credito;
 import modelo.FormaDePago;
+import modelo.Pago;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import repositorio.CreditoDao;
 import repositorio.Runner;
 import repositorio.SessionFactoryProvider;
 
-
-
 public class ConsultaCreditoController extends Observable {
+
     Credito creditoBuscado;
     CreditoDao creditoDao;
     Session session;
@@ -30,7 +30,7 @@ public class ConsultaCreditoController extends Observable {
     public ConsultaCreditoController() {
         creditoBuscado = new Credito();
         creditoBuscado.setCodigo("A-2354");
-        Cliente cli= new Cliente();
+        Cliente cli = new Cliente();
         cli.setApellido("fuser");
         creditoBuscado.setCliente(cli);
         creditoDao = new CreditoDao();
@@ -39,7 +39,7 @@ public class ConsultaCreditoController extends Observable {
         formasDePago.add(FormaDePago.SEMANAL);
         formasDePago.add(FormaDePago.QUINCENAL);
         formasDePago.add(FormaDePago.MENSUAL);
-     
+
     }
 
     public Credito getCreditoBuscado() {
@@ -60,7 +60,6 @@ public class ConsultaCreditoController extends Observable {
         this.formasDePago = formasDePago;
     }
 
-
     public void buscarCredito(String codigo) {
         session = SessionFactoryProvider.getInstance().createSession();
         tx = session.beginTransaction();
@@ -70,7 +69,5 @@ public class ConsultaCreditoController extends Observable {
         tx.commit();
         session.close();
     }
-    
-    
-    
+
 }
