@@ -30,5 +30,9 @@ public class CreditoObservado extends Observable {
         this.notifyObservers(this);
         
     }
+    public void actualizarVista(){
+        this.setChanged();
+        this.notifyObservers(this);
+    }
     
 }

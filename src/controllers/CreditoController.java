@@ -4,11 +4,13 @@ import excepciones.CreditoException.CreditoInvalidoException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import modelo.Articulo;
 import modelo.Credito;
 import modelo.Cliente;
 import modelo.FormaDePago;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import repositorio.ArticuloDao;
 import repositorio.CreditoDao;
 import repositorio.Runner;
 import repositorio.SessionFactoryProvider;
@@ -20,9 +22,11 @@ public class CreditoController {
     CreditoDao creditoDao;
     Session session;
     Transaction tx;
-
+    public ArticuloDao articuloDao;
     List<FormaDePago> formasDePago;
     CreditoObservado creditoObservado;
+    List<Articulo> articulos;
+    
     public CreditoController() {
 
         creditoNuevo = new Credito();
@@ -36,9 +40,29 @@ public class CreditoController {
         
         creditoObservado = new CreditoObservado();
         creditoObservado.setCredito(creditoNuevo);
+        articulos = new ArrayList<Articulo>();
+//         session = SessionFactoryProvider.getInstance().createSession();
+//        tx = session.beginTransaction();
+//        Runner.addSession(session);
+//        Articulo unArticulo = new Articulo();
+//        unArticulo.setCodigoArticulo(1324);
+//        unArticulo.setCosto(1000);
+//        unArticulo.setNombre("Tostatador");
+//        unArticulo.setDescripcion("marca Acme");
+//        unArticulo.setPrecio(2000);
+//        
+//        articulos.add(unArticulo);
         
     }
 
+    public List<Articulo> getArticulos() {
+        return articulos;
+    }
+
+    public void setArticulos(List<Articulo> articulos) {
+        this.articulos = articulos;
+    }
+    
     public void guardarCreditoNuevo() {
         try {
             // crecditoNuevo.validarDatos();
@@ -85,6 +109,22 @@ public class CreditoController {
 
     public void setCreditoObservado(CreditoObservado creditoObservado) {
         this.creditoObservado = creditoObservado;
+    }
+
+    public void cargarArticulo(int codigo) {
+        session = SessionFactoryProvider.getInstance().createSession();
+        tx = session.beginTransaction();
+        Runner.addSession(session);
+        articuloDao = new ArticuloDao();
+        Articulo articulo = articuloDao.buscarCodigo(codigo);
+        
+        tx.commit();
+        session.close();
+        
+        creditoNuevo.getArticulos().add(articulo);
+        articulos = creditoNuevo.getArticulos();
+        creditoObservado.actualizarVista();
+        
     }
     
 }

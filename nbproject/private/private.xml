@@ -7,11 +7,12 @@
 =======
         <group>
             <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/credihogar/frontend/CreditoWindows.java</file>
-            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/controllers/ClienteController.java</file>
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/credihogar/frontend/PagosWindows.java</file>
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/controllers/ArticuloController.java</file>
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/credihogar/frontend/ConsultaCreditoWindows.java</file>
             <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/controllers/CreditoController.java</file>
-            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/utils/CreditoObservado.java</file>
-            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/credihogar/frontend/MainWindows.java</file>
-            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/credihogar/frontend/BuscarCliente.java</file>
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/credihogar/frontend/BuscarCreditoWindows.java</file>
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/controllers/ConsultaCreditoController.java</file>
         </group>
 >>>>>>> 6d3d7fa78fc738116cf4997f794a2f45943d7e4d
     </open-files>
