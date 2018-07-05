@@ -35,9 +35,11 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
      * Creates new form ConsultaCreditoWindows
      */
      ConsultaCreditoController consultaCreditoController;
+
      DefaultTableModel articulosModel;
      Session session;
      Transaction tx;
+   
     public ConsultaCreditoWindows() {
         //este metodo devuelve el tamaño de la pantalla
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
@@ -695,9 +697,11 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
     }//GEN-LAST:event_jButton10ActionPerformed
 
 
+
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
+
 
 
     /**
