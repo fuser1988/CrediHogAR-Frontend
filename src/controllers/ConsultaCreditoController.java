@@ -25,12 +25,15 @@ public class ConsultaCreditoController extends Observable {
     CreditoDao creditoDao;
     Session session;
     Transaction tx;
-
+    Credito credito;
+    
     List<FormaDePago> formasDePago;
     List<EstadoDeCredito> estadosDeCredito;
-    
+    List<Credito> creditoCodigo;
+
     public ConsultaCreditoController() {
         creditoBuscado = new Credito();
+        credito = new Credito();
 
         Cliente cli = new Cliente();
 
@@ -42,13 +45,11 @@ public class ConsultaCreditoController extends Observable {
         formasDePago.add(FormaDePago.QUINCENAL);
         formasDePago.add(FormaDePago.MENSUAL);
 
-        
         estadosDeCredito = new ArrayList<EstadoDeCredito>();
         estadosDeCredito.add(EstadoDeCredito.VIGENTE);
         estadosDeCredito.add(EstadoDeCredito.PAGO);
         estadosDeCredito.add(EstadoDeCredito.MORA);
         estadosDeCredito.add(EstadoDeCredito.BAJA);
-     
 
     }
 
@@ -80,7 +81,6 @@ public class ConsultaCreditoController extends Observable {
         session.close();
     }
 
-
     public List<EstadoDeCredito> getEstadosDeCredito() {
         return estadosDeCredito;
     }
@@ -94,8 +94,22 @@ public class ConsultaCreditoController extends Observable {
         tx.commit();
         session.close();
     }
-    
-    
-    
 
-}
+    public int sumaTotal() {
+        List<Pago> pago = credito.getunpago();
+        int total = 0;
+        for (Pago e : pago) {
+            total += e.getMonto();
+        }
+        return total  + credito.getAnticipo();
+    }
+
+    public Credito getCredito() {
+        return credito;
+    }
+
+    public void setCredito(Credito credito) {
+        this.credito = credito;
+    }
+
+    }

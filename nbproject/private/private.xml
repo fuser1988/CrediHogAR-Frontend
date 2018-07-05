@@ -4,7 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/controllers/ConsultaCreditoController.java</file>
+            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/controllers/PagoController.java</file>
+            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/PagosWindows.java</file>
+            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/CreditoWindows.java</file>
             <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/ConsultaCreditoWindows.java</file>
+            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/ConsultaPagosWindows.java</file>
         </group>
     </open-files>
 </project-private>

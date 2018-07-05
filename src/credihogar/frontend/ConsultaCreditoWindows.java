@@ -7,6 +7,7 @@ package credihogar.frontend;
 
 import controllers.ConsultaCreditoController;
 import controllers.CreditoController;
+import controllers.PagoController;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
@@ -618,8 +619,10 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        PagosWindows pagoWindow = new PagosWindows(consultaCreditoController.getCreditoBuscado());
+        PagoController pagoController = new PagoController(consultaCreditoController.getCreditoBuscado());
+        ConsultaPagosWindows pagoWindow = new ConsultaPagosWindows();
         pagoWindow.setVisible(true);
+        pagoWindow.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
