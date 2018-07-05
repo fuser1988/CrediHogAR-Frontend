@@ -22,6 +22,7 @@ public class MainWindows extends javax.swing.JFrame {
         initComponents();
         ventanaBuscar = new BuscarCliente();
         ventanaCliente = new AltaClienteWindows();
+        this.setTitle("Administrador de Creditos");
     }
 
     /**

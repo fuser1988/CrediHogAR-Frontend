@@ -50,6 +50,8 @@ public class ArticuloWindows extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -141,6 +143,11 @@ public class ArticuloWindows extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("Comision");
+
+        jFormattedTextField1.setEditable(false);
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -173,7 +180,12 @@ public class ArticuloWindows extends javax.swing.JFrame {
                                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                        .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -183,7 +195,7 @@ public class ArticuloWindows extends javax.swing.JFrame {
                 .addComponent(jButton5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton6)
-                .addGap(31, 31, 31))
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +204,7 @@ public class ArticuloWindows extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -212,12 +224,16 @@ public class ArticuloWindows extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(jLabel7)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
+                    .addComponent(jButton4)
                     .addComponent(jButton6))
-                .addGap(24, 24, 24))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -241,6 +257,7 @@ public class ArticuloWindows extends javax.swing.JFrame {
         articulo.setDescripcion(jTextField3.getText());
         articulo.setPrecio(Integer.parseInt(jTextField4.getText()));
         articulo.setCosto(Integer.parseInt(jTextField5.getText()));
+        articulo.setComision(Integer.parseInt(jFormattedTextField1.getText()));
         articuloController.editarArticulo(articulo);
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -250,6 +267,7 @@ public class ArticuloWindows extends javax.swing.JFrame {
         articuloController.articuloSeleccionado.setDescripcion(jTextField3.getText());
         articuloController.articuloSeleccionado.setPrecio(Integer.parseInt(jTextField4.getText()));
         articuloController.articuloSeleccionado.setCosto(Integer.parseInt(jTextField5.getText()));
+        articuloController.articuloSeleccionado.setComision(Integer.parseInt(jFormattedTextField1.getText()));
         articuloController.guardarArticuloNuevo();
         limpiarInputs();
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -266,6 +284,7 @@ public class ArticuloWindows extends javax.swing.JFrame {
         jTextField3.setText(articulo.getDescripcion());
         jTextField4.setText(String.valueOf(articulo.getPrecio()));
         jTextField5.setText(String.valueOf(articulo.getCosto()));
+        jFormattedTextField1.setText(String.valueOf(articulo.getComision()));
         }catch(Exception e){
         }
         setEditable();
@@ -319,12 +338,14 @@ public class ArticuloWindows extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
@@ -339,6 +360,7 @@ public class ArticuloWindows extends javax.swing.JFrame {
         jTextField3.setText("");
         jTextField4.setText("");
         jTextField5.setText("");
+        jFormattedTextField1.setText("");
     }
     
     private void setEditable(){
@@ -346,5 +368,6 @@ public class ArticuloWindows extends javax.swing.JFrame {
         jTextField3.setEditable(true);
         jTextField4.setEditable(true);
         jTextField5.setEditable(true);
+        jFormattedTextField1.setEditable(true);
     }
 }
