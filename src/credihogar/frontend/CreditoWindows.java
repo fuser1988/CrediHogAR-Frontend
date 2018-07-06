@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Articulo;
 import modelo.Cliente;
 import modelo.Credito;
+import modelo.Empleado;
 import modelo.FormaDePago;
 
 public class CreditoWindows  extends javax.swing.JFrame implements Observer  {
@@ -25,6 +26,7 @@ public class CreditoWindows  extends javax.swing.JFrame implements Observer  {
         creditoController = new CreditoController();
         articulosModel = new DefaultTableModel();
         initFormasDePago();
+        initCobradores();
         initArticulos();
         initSizeTable();
         this.setTitle("Carga de Creditos");
@@ -113,7 +115,8 @@ public class CreditoWindows  extends javax.swing.JFrame implements Observer  {
 
         jLabel8.setText("Verificador");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oscar", "Raul", "Hernan", "Victor" }));
+        jComboBox3.setEnabled(false);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${creditoController.creditoNuevo.fechaDeInicio}"), jDateChooser1, org.jdesktop.beansbinding.BeanProperty.create("date"));
         bindingGroup.addBinding(binding);
@@ -346,7 +349,7 @@ public class CreditoWindows  extends javax.swing.JFrame implements Observer  {
         jLabel16.setToolTipText("");
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Oscar", "Raul", "Victor", "Adrian" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -356,11 +359,6 @@ public class CreditoWindows  extends javax.swing.JFrame implements Observer  {
 
         jButton3.setText("Quitar");
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(jList2);
 
         jButton4.setText("Cancelar");
@@ -559,6 +557,7 @@ public class CreditoWindows  extends javax.swing.JFrame implements Observer  {
         creditoAGuardar.setFormaDePago((FormaDePago) jComboBox1.getSelectedItem());
         creditoAGuardar.setAnticipo(Integer.parseInt(jTextField4.getText()));
         creditoAGuardar.setCuotas(Integer.parseInt(jTextField5.getText()));
+        creditoAGuardar.setCobrador((Empleado)jComboBox2.getSelectedItem());
         creditoController.guardarCreditoNuevo();
         limpiarCampos();
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -723,6 +722,7 @@ public class CreditoWindows  extends javax.swing.JFrame implements Observer  {
         DefaultComboBoxModel fPagoModel = new DefaultComboBoxModel(formasDePago.toArray());
         jComboBox1.setModel(fPagoModel);
     }
+    
 
     public CreditoController getCreditoController() {
         return creditoController;
@@ -824,6 +824,12 @@ public class CreditoWindows  extends javax.swing.JFrame implements Observer  {
 
     public void setMontoDeCuota(int montoDeCuota) {
         this.montoDeCuota = montoDeCuota;
+    }
+
+    private void initCobradores() {
+        List<Empleado> cobradores = creditoController.getCobradores();
+        DefaultComboBoxModel cobradoresModel = new DefaultComboBoxModel(cobradores.toArray());
+        jComboBox2.setModel(cobradoresModel);
     }
     
     

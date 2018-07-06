@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import modelo.Articulo;
+import modelo.Cargo;
 import modelo.Credito;
 import modelo.Cliente;
+import modelo.Empleado;
 import modelo.FormaDePago;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import repositorio.ArticuloDao;
 import repositorio.CreditoDao;
+import repositorio.EmpleadoDao;
 import repositorio.Runner;
 import repositorio.SessionFactoryProvider;
 import utils.CreditoObservado;
@@ -26,9 +29,13 @@ public class CreditoController {
     List<FormaDePago> formasDePago;
     CreditoObservado creditoObservado;
     List<Articulo> articulos;
-    
+    List<Empleado> empleados;
+    EmpleadoDao empleadoDao ;
     public CreditoController() {
-
+        empleados = new ArrayList<Empleado>();
+        empleadoDao = new EmpleadoDao();
+        recuperarEmpleados();//
+        
         creditoNuevo = new Credito();
         creditoNuevo.setCliente(new Cliente());
         creditoDao = new CreditoDao();
@@ -124,6 +131,24 @@ public class CreditoController {
         creditoNuevo.getArticulos().add(articulo);
         articulos = creditoNuevo.getArticulos();
         creditoObservado.actualizarVista();
+        
+    }
+
+    public List<Empleado> getCobradores() {
+        List<Empleado> cobradores = new ArrayList();
+        empleados.stream().filter((empleado) -> (empleado.getCargo() == Cargo.COBRADOR)).forEachOrdered((empleado) -> {
+            cobradores.add(empleado);
+        });
+        return cobradores;
+    }
+
+    private void recuperarEmpleados() {
+        session = SessionFactoryProvider.getInstance().createSession();
+        tx = session.beginTransaction();
+        Runner.addSession(session);
+        empleados = empleadoDao.traerTodo();
+        tx.commit();
+        session.close();
         
     }
     

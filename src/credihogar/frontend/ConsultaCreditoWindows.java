@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Articulo;
 import modelo.Cliente;
 import modelo.Credito;
+import modelo.Empleado;
 import modelo.EstadoDeCredito;
 import modelo.FormaDePago;
 import org.hibernate.Session;
@@ -54,6 +55,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         initFormasDePago();
         initEstadosDeCredito(); 
         initSizeTable();
+        initCobradores();
     }
 
     public ConsultaCreditoController getConsultaCreditoController() {
@@ -184,7 +186,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         jLabel16.setToolTipText("");
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Oscar", "Raul", "Victor", "Adrian" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
@@ -268,11 +270,12 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
 
         jLabel7.setText("Cobrador");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oscar", "Raul", "Hernan", "Victor" }));
+        jComboBox2.setEnabled(false);
 
         jLabel8.setText("Verificador");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oscar", "Raul", "Hernan", "Victor" }));
 
         jDateChooser1.setEnabled(false);
 
@@ -316,8 +319,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -331,7 +333,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,11 +430,6 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
 
         jButton3.setText("<- Quitar");
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(jList2);
 
         jButton4.setText("Cancelar");
@@ -833,6 +830,7 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         jTextField11.setText(cliente.getCalle());
         jTextField10.setText(cliente.getEntreCalle());
         jTextField9.setText(String.valueOf(cliente.getTelefono()));
+        jComboBox2.setSelectedItem(consultaCreditoController.getCobrador());
         llenarTabla();
     }
 
@@ -894,6 +892,12 @@ public class ConsultaCreditoWindows extends javax.swing.JFrame implements Observ
         jTable1.getColumn("Descripcion").setPreferredWidth(200);
         jTable1.getColumn("Precio").setPreferredWidth(30);
         jTable1.getColumn("Comision").setPreferredWidth(20);
+    }
+
+    private void initCobradores() {
+        List<Empleado> cobradores = consultaCreditoController.getCobradores();
+        DefaultComboBoxModel cobradoresModel = new DefaultComboBoxModel(cobradores.toArray());
+        jComboBox2.setModel(cobradoresModel);
     }
     
     

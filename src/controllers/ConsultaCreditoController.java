@@ -8,14 +8,17 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import modelo.Cargo;
 import modelo.Cliente;
 import modelo.Credito;
+import modelo.Empleado;
 import modelo.EstadoDeCredito;
 import modelo.FormaDePago;
 import modelo.Pago;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import repositorio.CreditoDao;
+import repositorio.EmpleadoDao;
 import repositorio.Runner;
 import repositorio.SessionFactoryProvider;
 
@@ -30,8 +33,14 @@ public class ConsultaCreditoController extends Observable {
     List<FormaDePago> formasDePago;
     List<EstadoDeCredito> estadosDeCredito;
     List<Credito> creditoCodigo;
-
+    List<Empleado> empleados;
+    EmpleadoDao empleadoDao ;
+    Empleado cobrador;
+        
     public ConsultaCreditoController() {
+        empleados = new ArrayList();
+        empleadoDao = new EmpleadoDao();
+        recuperarEmpleados();//
         creditoBuscado = new Credito();
         credito = new Credito();
 
@@ -53,6 +62,14 @@ public class ConsultaCreditoController extends Observable {
 
     }
 
+    public Empleado getCobrador() {
+        return cobrador;
+    }
+
+    public void setCobrador(Empleado cobrador) {
+        this.cobrador = cobrador;
+    }
+    
     public Credito getCreditoBuscado() {
         return creditoBuscado;
     }
@@ -76,7 +93,9 @@ public class ConsultaCreditoController extends Observable {
         tx = session.beginTransaction();
         Runner.addSession(session);
         creditoDao = new CreditoDao();
+        
         this.setCreditoBuscado(creditoDao.traerPorId(codigo)); // arrojar exepcion si no encuentra el codigo
+        cobrador = credito.getCobrador();
         tx.commit();
         session.close();
     }
@@ -113,4 +132,21 @@ public class ConsultaCreditoController extends Observable {
         this.credito = credito;
     }
 
+    public List<Empleado> getCobradores() {
+        List<Empleado> cobradores = new ArrayList();
+        empleados.stream().filter((empleado) -> (empleado.getCargo() == Cargo.COBRADOR)).forEachOrdered((empleado) -> {
+            cobradores.add(empleado);
+        });
+        return cobradores;
+    }
+
+    private void recuperarEmpleados() {
+        session = SessionFactoryProvider.getInstance().createSession();
+        tx = session.beginTransaction();
+        Runner.addSession(session);
+        empleados = empleadoDao.traerTodo();
+        tx.commit();
+        session.close();
+        
+    }
     }
