@@ -6,6 +6,7 @@
 package credihogar.frontend;
 
 import controllers.ClienteController;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import modelo.Cliente;
@@ -20,13 +21,16 @@ public class BuscarCliente extends javax.swing.JFrame {
 
     private int seleccionarBusqueda = 0;
     DefaultTableModel tModel;
+    List<Cliente> cliente;
 
     /**
      * Creates new form BuscarCliente
      */
     public BuscarCliente() {
         initComponents();
+        this.cliente = null;
         this.tModel = (DefaultTableModel) jTable1.getModel();
+
     }
 
     /**
@@ -193,46 +197,51 @@ public class BuscarCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         ctrlCliente.setBuscarCliente(jTextField1.getText());
-        Cliente buscar = ctrlCliente.buscarCliente(this.seleccionar());
+        tModel.setRowCount(0);
+        cliente = ctrlCliente.buscarCliente(this.seleccionar());
 
         try {
-            if (buscar != null) {
-                tModel.setRowCount(0);
-
-                Object[] objetos = new Object[]{buscar.getId(),
-                    buscar.getNombre(),
-                    buscar.getApellido(),
-                    buscar.getCalle(),
-                    buscar.getEntreCalle(),
-                    buscar.getDNI(),
-                    buscar.getTelefono(),
-                    buscar.getCalificacion()};
-
-                tModel.addRow(objetos);
+            if (cliente != null) {
+                cliente.stream().map((e) -> {
+                    return e;
+                }).map((e) -> new Object[]{e.getId(),
+                    e.getNombre(),
+                    e.getApellido(),
+                    e.getCalle(),
+                    e.getEntreCalle(),
+                    e.getDNI(),
+                    e.getTelefono(),
+                    e.getCalificacion()}).map((objetos) -> {
+                    tModel.addRow(objetos);
+                    return objetos;
+                }).forEachOrdered((_item) -> {
+                    tModel.getDataVector();
+                });
             }
         } catch (Exception e) {
         } finally {
             jTextField1.setText("");
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        List<Cliente> cliente = ctrlCliente.getResultadoBusquedaClientes();
+        cliente = ctrlCliente.getResultadoBusquedaClientes();
         tModel.setRowCount(0);
-        for (Cliente clientes : cliente) {
-            Object[] objetos = new Object[]{clientes.getId(),
-                clientes.getNombre(),
-                clientes.getApellido(),
-                clientes.getCalle(),
-                clientes.getEntreCalle(),
-                clientes.getDNI(),
-                clientes.getTelefono(),
-                clientes.getCalificacion()};
-
+        cliente.stream().map((clientes) -> new Object[]{clientes.getId(),
+            clientes.getNombre(),
+            clientes.getApellido(),
+            clientes.getCalle(),
+            clientes.getEntreCalle(),
+            clientes.getDNI(),
+            clientes.getTelefono(),
+            clientes.getCalificacion()}).map((objetos) -> {
             tModel.addRow(objetos);
+            return objetos;
+        }).forEachOrdered((_item) -> {
             tModel.getDataVector();
-        }
+        });
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -275,9 +284,9 @@ public class BuscarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       AltaClienteWindows ventanaCliente = new AltaClienteWindows();
-       ventanaCliente.setVisible(true);
-       ventanaCliente.setLocationRelativeTo(null);
+        AltaClienteWindows ventanaCliente = new AltaClienteWindows();
+        ventanaCliente.setVisible(true);
+        ventanaCliente.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

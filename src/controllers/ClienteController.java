@@ -36,6 +36,7 @@ public class ClienteController {
     private int clienteEditado = 0;
     public List<Cliente> resultadoBusquedaClientes;
     public CreditoObservado creditoNuevo; 
+    List<Cliente> prueba;
     
     public ClienteController (){
         resultadoBusquedaClientes = this.traerClientes();
@@ -69,46 +70,46 @@ public class ClienteController {
         session.close();
     }
     
-    public Cliente buscarCliente(int seleccionar){
+    public List<Cliente> buscarCliente(int seleccionar){
         return buscar(seleccionar);
     }
 
-    private Cliente buscar(int seleccionarBusqueda) {
+    private List<Cliente> buscar(int seleccionarBusqueda) {
 
         session = SessionFactoryProvider.getInstance().createSession();
         tx = session.beginTransaction();
         Runner.addSession(session);
         clienteDao = new ClienteDao();
 
-        switch (seleccionarBusqueda) {
+         switch (seleccionarBusqueda) {
 
             case 1:
-                cliente = clienteDao.buscarNombre(clienteBuscar);
+                prueba = clienteDao.buscarVarios("nombre", clienteBuscar);
                 break;
             case 2:
-                cliente = clienteDao.buscarApellido(clienteBuscar);
+                prueba = clienteDao.buscarVarios("apellido", clienteBuscar);
                 break;
             case 3:
                 if (clienteBuscar.equalsIgnoreCase("")) {
                     clienteBuscar = "0";
                 }
-                cliente = clienteDao.buscarDni(Integer.parseInt(clienteBuscar));
+                prueba = clienteDao.buscarVarios("DNI", Integer.parseInt(clienteBuscar));
                 break;
             case 4:
                 if (clienteBuscar.equalsIgnoreCase("")) {
                     clienteBuscar = "0";
                 }
-                cliente = clienteDao.buscarID(Integer.parseInt(clienteBuscar));
+                prueba = clienteDao.buscarVarios("id",Integer.parseInt(clienteBuscar));
                 break;
             case 5:
-                cliente = clienteDao.buscarCalificacion(clienteBuscar);
+                prueba = clienteDao.buscarVarios("calificacion", clienteBuscar);
                 break;
             default:
                 break;
         }
         tx.commit();
         session.close();
-        return cliente;
+        return prueba;
     }
     
     public List<Cliente> traerClientes(){
