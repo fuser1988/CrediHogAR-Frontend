@@ -197,12 +197,12 @@ public class BuscarCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         ctrlCliente.setBuscarCliente(jTextField1.getText());
+        tModel.setRowCount(0);
         cliente = ctrlCliente.buscarCliente(this.seleccionar());
 
         try {
             if (cliente != null) {
                 cliente.stream().map((e) -> {
-                    tModel.setRowCount(0);
                     return e;
                 }).map((e) -> new Object[]{e.getId(),
                     e.getNombre(),

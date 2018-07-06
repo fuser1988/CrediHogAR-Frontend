@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+<<<<<<< HEAD
+            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/controllers/ConsultaCreditoController.java</file>
+            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/controllers/PagoController.java</file>
+            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/PagosWindows.java</file>
+            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/CreditoWindows.java</file>
+            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/ConsultaCreditoWindows.java</file>
+            <file>file:/C:/Users/Bautista/Documents/GitHub/CrediHogAR-Frontend/src/credihogar/frontend/ConsultaPagosWindows.java</file>
+=======
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/credihogar/frontend/CreditoWindows.java</file>
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/credihogar/frontend/PagosWindows.java</file>
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/controllers/ArticuloController.java</file>
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/credihogar/frontend/ConsultaCreditoWindows.java</file>
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/controllers/CreditoController.java</file>
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/credihogar/frontend/BuscarCreditoWindows.java</file>
+            <file>file:/C:/Users/OVERCROSS/git/CrediHogAR-Frontend/src/controllers/ConsultaCreditoController.java</file>
+>>>>>>> 55c33b554cb06899edec42c0dd72f304d3d24b0c
+        </group>
+    </open-files>
+</project-private>

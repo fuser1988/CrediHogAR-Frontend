@@ -5,6 +5,7 @@
  */
 package credihogar.frontend;
 
+import controllers.ConsultaCreditoController;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -21,6 +22,7 @@ public class MainWindows extends javax.swing.JFrame {
         initComponents();
         ventanaBuscar = new BuscarCliente();
         ventanaCliente = new AltaClienteWindows();
+        this.setTitle("Administrador de Creditos");
     }
 
     /**
@@ -221,6 +223,11 @@ public class MainWindows extends javax.swing.JFrame {
         ConsultaCreditoWindows consultaCreditoWindows = new ConsultaCreditoWindows();
         consultaCreditoWindows.setVisible(true);
         consultaCreditoWindows.setLocationRelativeTo(null);
+        ConsultaCreditoController consultaCreditoController = consultaCreditoWindows.getConsultaCreditoController();
+        consultaCreditoController.addObserver(consultaCreditoWindows);
+        BuscarCreditoWindows buscarCreditoWindows = new BuscarCreditoWindows(consultaCreditoController);
+        buscarCreditoWindows.setVisible(true);
+        buscarCreditoWindows.setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**

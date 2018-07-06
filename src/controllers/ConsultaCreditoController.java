@@ -101,7 +101,8 @@ public class ConsultaCreditoController extends Observable {
         for (Pago e : pago) {
             total += e.getMonto();
         }
-        return total  + credito.getAnticipo();
+        total += credito.getAnticipo();
+        return total;
     }
 
     public Credito getCredito() {

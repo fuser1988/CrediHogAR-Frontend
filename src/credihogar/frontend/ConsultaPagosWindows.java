@@ -32,12 +32,13 @@ public class ConsultaPagosWindows extends javax.swing.JFrame {
     PagoController pagoController;
     PagosWindows pagosWin;
 
-    public ConsultaPagosWindows() {
+    public ConsultaPagosWindows(Credito credito) {
         pagoController = new PagoController();
-        credito = new Credito();
+        this.credito=credito;
         creditoController = new ConsultaCreditoController();
         initComponents();
     }
+    
 
     public PagoController getPagoController() {
         return pagoController;
@@ -88,10 +89,10 @@ public class ConsultaPagosWindows extends javax.swing.JFrame {
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${credito.unpago}");
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, eLProperty, jTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${monto}"));
-        columnBinding.setColumnName("PAGOS");
+        columnBinding.setColumnName("Monto");
         columnBinding.setColumnClass(Integer.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fecha}"));
-        columnBinding.setColumnName("FECHA");
+        columnBinding.setColumnName("Fecha");
         columnBinding.setColumnClass(java.util.Date.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${pagoController.pagoSeleccionado}"), jTable1, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
@@ -216,8 +217,7 @@ public class ConsultaPagosWindows extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        setCredito(pagoController.getCredito());
-        creditoController.setCredito(getCredito());
+        creditoController.setCredito(credito);
         jText.setText(String.valueOf(creditoController.sumaTotal()));
         anularCampos();
     }//GEN-LAST:event_formWindowOpened

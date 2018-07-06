@@ -102,7 +102,7 @@ public class ClienteController {
                 prueba = clienteDao.buscarVarios("id",Integer.parseInt(clienteBuscar));
                 break;
             case 5:
-                prueba = clienteDao.buscarVarios("calificacion",clienteBuscar);
+                prueba = clienteDao.buscarVarios("calificacion", clienteBuscar);
                 break;
             default:
                 break;

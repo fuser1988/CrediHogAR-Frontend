@@ -34,12 +34,6 @@ public class PagoController {
         pagoNuevo = new Pago();
         pago = new Pago();
     }
-    
-    public PagoController(Credito creditoBuscado) {
-        this.credito = creditoBuscado;
-        pagoNuevo = new Pago();
-        pago = new Pago();
-    }
 
     public void guardar() {
         session = SessionFactoryProvider.getInstance().createSession();
