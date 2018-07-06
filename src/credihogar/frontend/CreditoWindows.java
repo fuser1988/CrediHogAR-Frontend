@@ -111,12 +111,9 @@ public class CreditoWindows  extends javax.swing.JFrame implements Observer  {
 
         jLabel7.setText("Cobrador");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel8.setText("Verificador");
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Oscar", "Raul", "Hernan", "Victor" }));
-        jComboBox3.setEnabled(false);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${creditoController.creditoNuevo.fechaDeInicio}"), jDateChooser1, org.jdesktop.beansbinding.BeanProperty.create("date"));
         bindingGroup.addBinding(binding);
